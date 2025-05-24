@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pixel Metaverse</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+    <!-- Add above the canvas -->
+<div id="authModal" style="position: absolute; top: 20px; left: 20px; background: #333; padding: 20px; border-radius: 8px; display: none;">
+  <h3>Login / Register</h3>
+  <input type="text" id="username" placeholder="Username" /><br><br>
+  <input type="password" id="password" placeholder="Password" /><br><br>
+  <button onclick="submitAuth('register')">Register</button>
+  <button onclick="submitAuth('login')">Login</button>
+  <p id="authStatus" style="color: red;"></p>
+</div>
+
+<!-- Update canvas.js to show modal if not logged in -->
+<script>
+  // Check if user is logged in
+  fetch('/php/check_auth.php')
+    .then(res => res.json())
+    .then(data => {
+      if (!data.authenticated) {
+        document.getElementById('authModal').style.display = 'block';
+      }
+    });
+</script>
+  <canvas id="metaverseCanvas"></canvas>
+  <script src="js/canvas.js"></script>
+  <script src="js/socket.js"></script> <!-- Optional for sync -->
+</body>
+</html>
